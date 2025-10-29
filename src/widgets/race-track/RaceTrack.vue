@@ -68,15 +68,20 @@ function getHorsePositionByLane(lane: number) {
             <div
               v-if="getHorsePositionByLane(lane)"
               v-show="getHorsePositionByLane(lane).position < 100"
-              class="horse-container absolute transition-all duration-100"
+              class="horse-container absolute transition-all duration-100 flex flex-col items-center"
               :style="{
                 left: `${TRACK_LAYOUT.START_LINE_OFFSET + (getHorsePositionByLane(lane).position * TRACK_LAYOUT.TRACK_WIDTH_MULTIPLIER)}%`
               }"
             >
+              <div
+                  class="text-xs font-semibold text-gray-800 bg-white/95 px-2 rounded-full shadow-sm whitespace-nowrap mb-[-6px] border-2"
+                  :style="{ borderColor: getHorsePositionByLane(lane).color }">
+                {{ getHorsePositionByLane(lane).name }}
+              </div>
               <HorseIcon
                 :color="getHorsePositionByLane(lane).color"
                 :is-racing="isRacing && !getHorsePositionByLane(lane).isFinished"
-                :size="80"
+                :size="60"
               />
             </div>
           </div>

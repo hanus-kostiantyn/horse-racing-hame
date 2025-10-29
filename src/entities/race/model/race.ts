@@ -52,30 +52,31 @@ export class RaceFactory {
   /**
    * Creates a complete race schedule
    * @param allHorses - Pool of all available horses (20)
-   * @returns Created race schedule with 10 randomly selected horses
+   * @returns Created race schedule with different 10 randomly selected horses for each round
    */
   createSchedule(allHorses: Horse[]): RaceSchedule {
     if (allHorses.length < GAME_CONFIG.HORSES_PER_RACE) {
       throw new Error(`Need at least ${GAME_CONFIG.HORSES_PER_RACE} horses`)
     }
 
-    // Randomly select 10 horses from the pool of 20
-    const selectedHorses = this.randomGenerator.pickRandom(
-      allHorses,
-      GAME_CONFIG.HORSES_PER_RACE
-    )
-
-    // Assign lanes 1-10 to the selected horses
-    const horsesWithLanes: RaceHorse[] = selectedHorses.map((horse, index) => ({
-      ...horse,
-      laneNumber: index + 1,
-    }))
-
     const races: Race[] = []
 
     for (let i = 0; i < GAME_CONFIG.TOTAL_ROUNDS; i++) {
       const roundNumber = i + 1
-      const race = this.createRace(roundNumber, [...horsesWithLanes])
+
+      // Randomly select 10 horses from the pool of 20 for this round
+      const selectedHorses = this.randomGenerator.pickRandom(
+        allHorses,
+        GAME_CONFIG.HORSES_PER_RACE
+      )
+
+      // Assign lanes 1-10 to the selected horses
+      const horsesWithLanes: RaceHorse[] = selectedHorses.map((horse, index) => ({
+        ...horse,
+        laneNumber: index + 1,
+      }))
+
+      const race = this.createRace(roundNumber, horsesWithLanes)
       races.push(race)
     }
 
