@@ -1,5 +1,7 @@
 # Horse Racing Game
 
+Latest delployment: https://horse-racing-hame-4yumxaq1d-hanus-kostiantyns-projects.vercel.app/
+
 Vue 3 + TypeScript horse racing game
 
 ## Features
